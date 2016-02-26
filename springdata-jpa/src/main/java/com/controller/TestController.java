@@ -147,17 +147,17 @@ public class TestController {
 		}
 		
 		@RequestMapping(value = "/serialization")
-		public String serialization(@RequestParam("name")String name,@RequestParam("pin")String pincode) throws IOException {
+		public String serialization(@RequestParam("name")String name,@RequestParam("pin")String pincode) {
 			return "test";
 		}
 		
 		@RequestMapping(value = "/deSerialization")
-		public String deSerialization() throws IOException, ClassNotFoundException {
+		public String deSerialization() {
 			return "test";
 		}
 		
 		@RequestMapping(value = "/thread")
-		public String thread() throws IOException, ClassNotFoundException {
+		public String thread() {
 			Test test = new Test();
 			Thread t1=new Thread(test);
 			t1.start();
