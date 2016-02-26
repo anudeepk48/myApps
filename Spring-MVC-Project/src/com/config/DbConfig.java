@@ -18,17 +18,19 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
+import com.constant.Constant;
+
 @Configuration
 @EnableTransactionManagement(mode = AdviceMode.PROXY, proxyTargetClass = true)
-public class DbConfig implements TransactionManagementConfigurer {
+public class DbConfig extends Constant implements TransactionManagementConfigurer {
 
 	@Bean
 	public DataSource dataSource() throws SQLException {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://10.132.10.61:3306/testDb");
-		dataSource.setUsername("student");
-		dataSource.setPassword("password123");
+		dataSource.setDriverClassName(driver);
+		dataSource.setUrl(url);
+		dataSource.setUsername(username);
+		dataSource.setPassword(password);
 		return dataSource;
 	}
 	
@@ -36,16 +38,16 @@ public class DbConfig implements TransactionManagementConfigurer {
     public LocalSessionFactoryBean sessionFactory() throws SQLException {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[] { "com.model" });
+        sessionFactory.setPackagesToScan(new String[] { packageToScan });
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
      }
 	
 	private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        properties.put("hibernate.show_sql", true);
-        properties.put("hibernate.hbm2ddl.auto", "create-drop");
+        properties.put("hibernate.dialect", dialect);
+        properties.put("hibernate.show_sql", show_sql);
+        properties.put("hibernate.hbm2ddl.auto", hbm2ddl);
         return properties;        
     }
 	
