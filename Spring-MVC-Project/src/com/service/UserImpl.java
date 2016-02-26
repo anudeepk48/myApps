@@ -4,13 +4,9 @@ package com.service;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.transaction.TransactionManager;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +17,6 @@ import com.repository.UserRepository;
 @Service
 public class UserImpl implements UserRepository {
 
-//	@Autowired
-//	TransactionManager transactionManager;
-	
 	@Autowired
 	HibernateTransactionManager transactionManager;
 	
@@ -31,7 +24,7 @@ public class UserImpl implements UserRepository {
 	
 	@PostConstruct
 	public void setBeans(){
-		session = transactionManager.getSessionFactory().openSession();
+		session = getSession();
 	}
 	
 	@Transactional
@@ -40,11 +33,6 @@ public class UserImpl implements UserRepository {
 		session.saveOrUpdate(user);
 	}
 	
-	public Session getSession(){
-		session = transactionManager.getSessionFactory().openSession();
-		return session;
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> list() {
@@ -55,6 +43,11 @@ public class UserImpl implements UserRepository {
 	@Override
 	public User get(Long id) {
 		return (User)session.get(User.class, id);
+	}
+	
+	public Session getSession(){
+		session = transactionManager.getSessionFactory().openSession();
+		return session;
 	}
 	
 }
