@@ -29,7 +29,7 @@ class ProductList extends React.Component {
             <tr>
               <th>Name</th>
               <th>Price</th>
-              <th>Auantity</th>
+              <th>Quantity</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>
