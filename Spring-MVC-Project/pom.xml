@@ -128,7 +128,7 @@
 
 	<properties>
 		<org.springframework.version>4.0.6.RELEASE</org.springframework.version>
-		<org.hibernate.version>4.3.6.Final</org.hibernate.version>
+		<org.hibernate.version>5.4.24.Final</org.hibernate.version>
 	</properties>
 
 </project>
